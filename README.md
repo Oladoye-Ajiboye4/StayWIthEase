@@ -1,1 +1,1 @@
-# StayEase-Hotel
+# StayEase-Hotel# StayWIthEase
