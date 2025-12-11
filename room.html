@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Room Details - Stay With Ease</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+  <link href="styles/dashboard.css" rel="stylesheet" />
+</head>
+<body class="page-room">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+        <div class="logo-container">
+          <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="8" width="36" height="28" rx="2" fill="#10b981" stroke="#059669" stroke-width="1.5"/>
+            <rect x="6" y="12" width="6" height="6" fill="white" opacity="0.9"/>
+            <rect x="14" y="12" width="6" height="6" fill="white" opacity="0.9"/>
+            <rect x="22" y="12" width="6" height="6" fill="white" opacity="0.9"/>
+            <rect x="30" y="12" width="6" height="6" fill="white" opacity="0.9"/>
+            <rect x="6" y="21" width="6" height="6" fill="white" opacity="0.9"/>
+            <rect x="14" y="21" width="6" height="6" fill="white" opacity="0.9"/>
+            <rect x="22" y="21" width="6" height="6" fill="white" opacity="0.9"/>
+            <rect x="30" y="21" width="6" height="6" fill="white" opacity="0.9"/>
+            <path d="M12 3 L18 1 L24 3 L20 8 Z" fill="#dc2626" stroke="#b91c1c" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="fw-bold ms-2">Stay With Ease</span>
+      </a>
+      
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check me-2"></i>My Bookings</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+        </ul>
+        
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn text-white fw-bold wallet-badge rounded-4" onclick="logOut()">Logout</button>
+          <div class="wallet-badge">
+            <i class="bi bi-wallet2"></i>
+            <span class="fw-bold">₦50,000.00</span>
+          </div>
+          <div class="user-avatar" id="avatarContainer">
+            <img src="https://ui-avatars.com/api/?name=User&background=10b981&color=fff&bold=true" alt="User">
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4 room-wrapper" style="padding-top: 90px;">
+    <!-- Header: Title + Price + CTA -->
+    <div class="row align-items-center gy-3 mb-3">
+      <div class="col-12 col-md-8">
+        <h1 class="hero-title mb-1" style="font-size:2rem;"><span id="hotelName">Hotel</span> Room Details</h1>
+        <p class="text-muted mb-0"><span id="location">Victoria Island, Lagos</span> • Ocean view • Free Wi‑Fi</p>
+      </div>
+      <div class="col-12 col-md-4 text-md-end room-header-cta">
+        <div class="d-inline-flex align-items-center gap-3 flex-wrap">
+          <div class="hotel-price mb-0">₦85,000<span>/night</span></div>
+          <a class="btn btn-view" href="#payment">Proceed to Payment</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Media: Images + Video -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-lg-8 room-media-main">
+        <div class="hotel-card">
+          <img class="hotel-image" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=700&fit=crop" alt="Main Room" />
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 room-media-side">
+        <div class="hotel-card mb-3">
+          <img class="hotel-image" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=500&fit=crop" alt="Alt 1" />
+        </div>
+        <div class="hotel-card video-thumbnail" style="position: relative; overflow: hidden; cursor: pointer;">
+          <img class="hotel-image" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=500&fit=crop" alt="Room Tour Thumbnail" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); transition: background 0.3s ease;">
+            <div style="width: 60px; height: 60px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;">
+              <i class="bi bi-play-fill" style="font-size: 28px; color: #10b981; margin-left: 4px;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description + Amenities -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-lg-8">
+        <div class="hotel-card">
+          <div class="hotel-content">
+            <h3 class="hotel-name">About this room</h3>
+            <p class="hotel-description mb-2">
+              Enjoy an elegant room featuring a king-size bed, premium linens,
+              smart TV, work desk, and a spacious bathroom with a walk-in shower.
+              Floor-to-ceiling windows offer panoramic views of the city skyline.
+            </p>
+            <div class="hotel-tags d-flex flex-wrap gap-2">
+              <span class="badge">King Bed</span>
+              <span class="badge">Ocean View</span>
+              <span class="badge">Breakfast Included</span>
+              <span class="badge">Free Cancellation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="hotel-card">
+          <div class="hotel-content">
+            <h3 class="hotel-name">Map (placeholder)</h3>
+            <p class="hotel-description mb-2">Map API goes here. Embed your map later.</p>
+            <div class="map-card">
+              <img src="https://api.mapbox.com/styles/v1/mapbox/light-v11/static/3.3792,6.5244,11,0/600x300@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" alt="Map" class="map-image" style="height:300px;" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Room Types Selection -->
+    <div class="row g-3 mb-4">
+      <div class="col-12">
+        <div class="section-header mb-3"><h2>Choose your room type</h2></div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="hotel-card h-100">
+          <div class="hotel-content">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h3 class="hotel-name mb-1">Executive Suite</h3>
+                <p class="hotel-location mb-2">Living area • Private lounge access</p>
+              </div>
+              <div class="hotel-rating"><i class="bi bi-star-fill"></i> 4.9</div>
+            </div>
+            <p class="hotel-description">Spacious suite with separate lounge, premium bath amenities, and concierge benefits.</p>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <div class="hotel-price">₦150,000<span>/night</span></div>
+              <a class="btn btn-view" href="#payment">Select</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="hotel-card h-100">
+          <div class="hotel-content">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h3 class="hotel-name mb-1">Deluxe Room</h3>
+                <p class="hotel-location mb-2">King bed • City view</p>
+              </div>
+              <div class="hotel-rating"><i class="bi bi-star-fill"></i> 4.7</div>
+            </div>
+            <p class="hotel-description">Elegant room with premium linens, work desk, and smart TV.</p>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <div class="hotel-price">₦95,000<span>/night</span></div>
+              <a class="btn btn-view" href="#payment">Select</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="hotel-card h-100">
+          <div class="hotel-content">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h3 class="hotel-name mb-1">Regular Room</h3>
+                <p class="hotel-location mb-2">Queen bed • Compact</p>
+              </div>
+              <div class="hotel-rating"><i class="bi bi-star-fill"></i> 4.5</div>
+            </div>
+            <p class="hotel-description">Cozy room ideal for short stays, great value and comfort.</p>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <div class="hotel-price">₦78,500<span>/night</span></div>
+              <a class="btn btn-view" href="#payment">Select</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment CTA Section -->
+    <div id="payment" class="row g-3 mb-5">
+      <div class="col-12">
+        <div class="hotel-card booking-card-section">
+          <div class="hotel-content">
+            <div class="row align-items-start mb-4 gy-2">
+              <div class="col-12 col-md-8">
+                <h3 class="hotel-name mb-1">Selected Room</h3>
+                <p class="hotel-location mb-0">Executive Suite • Max 2 guests • <span id="nightlyRate">₦150,000</span>/night</p>
+              </div>
+              <div class="col-12 col-md-4 text-md-end">
+                <div class="hotel-price mb-0 d-inline-block" id="displayTotal">₦150,000<span> (per night)</span></div>
+              </div>
+            </div>
+
+            <!-- Booking Details Form -->
+            <form id="bookingForm" class="row g-3">
+              <div class="col-12 col-sm-6 col-md-3">
+                <label for="checkIn" class="form-label" style="font-size: 0.9rem; font-weight: 500;">Check‑in Date</label>
+                <input type="date" class="form-control" id="checkIn" style="font-size: 0.95rem; padding: 0.75rem;" required>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3">
+                <label for="checkOut" class="form-label" style="font-size: 0.9rem; font-weight: 500;">Check‑out Date</label>
+                <input type="date" class="form-control" id="checkOut" style="font-size: 0.95rem; padding: 0.75rem;" required>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3">
+                <label for="guests" class="form-label" style="font-size: 0.9rem; font-weight: 500;">Guests</label>
+                <select id="guests" class="form-select" aria-label="Guests" style="font-size: 0.95rem; padding: 0.75rem;">
+                  <option value="1">1 Guest</option>
+                  <option value="2" selected>2 Guests</option>
+                </select>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3">
+                <label for="roomType" class="form-label" style="font-size: 0.9rem; font-weight: 500;">Room Type</label>
+                <select id="roomType" class="form-select" aria-label="Room Type" style="font-size: 0.95rem; padding: 0.75rem;">
+                  <option value="deluxe" data-price="95000">Deluxe Room</option>
+                  <option value="executive" selected data-price="150000">Executive Suite</option>
+                  <option value="regular" data-price="78500">Regular Room</option>
+                </select>
+              </div>
+
+              <div class="col-12 pt-2 border-top border-dark">
+                <div class="row align-items-center gy-2">
+                  <div class="col-12 col-sm-auto">
+                    <div class="d-flex gap-3 flex-wrap">
+                      <div>
+                        <small class="text-muted d-block mb-1" style="font-size: 0.85rem;">Nights</small>
+                        <strong id="nightCount" style="font-size: 1.5rem;">0</strong>
+                      </div>
+                      <div>
+                        <small class="text-muted d-block mb-1" style="font-size: 0.85rem;">Total Price</small>
+                        <strong id="totalPrice" style="font-size: 1.5rem; color: var(--primary-green);">₦0</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-auto ms-sm-auto">
+                    <a class="btn btn-view w-100" href="#">Pay Now</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-3"><a href="#">About Us</a></div>
+        <div class="col-md-3 mb-3"><a href="#">Contact</a></div>
+        <div class="col-md-3 mb-3"><a href="#">Terms of Service</a></div>
+        <div class="col-md-3 mb-3"><a href="#">Privacy Policy</a></div>
+      </div>
+      <div class="text-center mt-3">
+        <p class="mb-0">© 2025 Stay With Ease. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="scripts/room.js"></script>
+  <script>
+    // Dynamic calculator for nights, room type, and total price
+    (function(){
+      const checkIn = document.getElementById('checkIn');
+      const checkOut = document.getElementById('checkOut');
+      const nightCountEl = document.getElementById('nightCount');
+      const totalEl = document.getElementById('totalPrice');
+      const displayTotalEl = document.getElementById('displayTotal');
+      const roomTypeSelect = document.getElementById('roomType');
+      const nightlyRateEl = document.getElementById('nightlyRate');
+
+      // Room prices
+      const roomPrices = {
+        'deluxe': 95000,
+        'executive': 150000,
+        'regular': 78500
+      };
+
+      function formatNaira(n){
+        return '₦' + n.toLocaleString('en-NG');
+      }
+
+      function calculate(){
+        const inVal = checkIn.value ? new Date(checkIn.value) : null;
+        const outVal = checkOut.value ? new Date(checkOut.value) : null;
+        let nights = 0;
+        if (inVal && outVal && outVal > inVal) {
+          const msPerDay = 24 * 60 * 60 * 1000;
+          nights = Math.round((outVal - inVal) / msPerDay);
+        }
+        
+        const selectedRoom = roomTypeSelect.value;
+        const nightlyPrice = roomPrices[selectedRoom] || 150000;
+        const total = nights * nightlyPrice;
+
+        nightCountEl.textContent = nights;
+        totalEl.textContent = formatNaira(total);
+        nightlyRateEl.textContent = formatNaira(nightlyPrice);
+        
+        if (nights > 0) {
+          displayTotalEl.innerHTML = `${formatNaira(total)}<span> (total)</span>`;
+        } else {
+          displayTotalEl.innerHTML = `${formatNaira(nightlyPrice)}<span> (per night)</span>`;
+        }
+      }
+
+      // Listen to all input changes
+      ['change', 'input'].forEach(evt => {
+        checkIn.addEventListener(evt, calculate);
+        checkOut.addEventListener(evt, calculate);
+        roomTypeSelect.addEventListener(evt, calculate);
+      });
+
+      // Initialize defaults: today and tomorrow
+      const today = new Date();
+      const tomorrow = new Date(Date.now() + 24*60*60*1000);
+      const toISO = d => d.toISOString().slice(0,10);
+      checkIn.value = toISO(today);
+      checkOut.value = toISO(tomorrow);
+      calculate();
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
