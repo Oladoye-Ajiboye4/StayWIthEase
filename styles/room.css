@@ -1,0 +1,750 @@
+/* ===================== ROOM PAGE STYLES ===================== */
+/* Extracted from dashboard.css for better code organization */
+
+/* Room Page Layout */
+.page-room .room-wrapper { 
+    padding-top: 2rem; 
+}
+
+.page-room .room-header-cta .hotel-price { 
+    font-size: 1.4rem; 
+}
+
+.page-room .room-media-main .hotel-image { 
+    min-height: 320px; 
+}
+
+.page-room .room-media-side .hotel-image { 
+    min-height: 200px; 
+}
+
+/* Room type selection cards - responsive button and price */
+.page-room .hotel-card .hotel-price {
+    font-size: 1.15rem;
+    word-break: break-word;
+}
+
+.page-room .hotel-card .btn-view {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* ===================== RESPONSIVE BREAKPOINTS ===================== */
+
+/* Large tablets and small desktops */
+@media (max-width: 992px) {
+    .page-room .hero-title { 
+        font-size: 1.75rem !important; 
+    }
+    
+    .page-room .room-header-cta { 
+        text-align: left !important; 
+        margin-top: .5rem; 
+    }
+    
+    .page-room .room-header-cta .d-inline-flex { 
+        gap: .75rem; 
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
+    
+    .page-room .room-header-cta .hotel-price { 
+        font-size: 1.3rem; 
+    }
+    
+    .page-room .room-header-cta .btn-view { 
+        width: 100%; 
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    .page-room .hero-title { 
+        font-size: 1.5rem !important; 
+    }
+    
+    .page-room .room-header-cta .hotel-price { 
+        font-size: 1.15rem; 
+    }
+    
+    .page-room .hotel-card { 
+        margin-bottom: 1rem; 
+    }
+    
+    .page-room .room-media-main .hotel-image { 
+        min-height: 240px; 
+    }
+    
+    .page-room .room-media-side .hotel-image { 
+        min-height: 180px; 
+    }
+    
+    .page-room .map-card .map-image { 
+        height: 280px !important; 
+    }
+    
+    /* Room type cards responsive */
+    .page-room .hotel-card .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .page-room .hotel-card .hotel-price {
+        font-size: 1rem;
+    }
+    
+    .page-room .hotel-card .btn-view {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+    
+    /* Booking section responsive */
+    .page-room .booking-card-section .row.align-items-start {
+        flex-direction: column;
+    }
+    
+    .page-room .booking-card-section .col-md-4 {
+        width: 100%;
+        text-align: left !important;
+        margin-top: 0.5rem;
+    }
+    
+    .page-room .booking-card-section .hotel-price {
+        font-size: 1.1rem;
+    }
+    
+    /* Payment summary responsive */
+    .page-room #nightCount, 
+    .page-room #totalPrice {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 576px) {
+    .page-room .container { 
+        padding-left: .75rem; 
+        padding-right: .75rem; 
+    }
+    
+    .page-room .hero-title { 
+        font-size: 1.35rem !important; 
+    }
+    
+    .page-room .hotel-price { 
+        font-size: 1rem; 
+    }
+    
+    .page-room .btn-view { 
+        width: 100%; 
+        text-align: center; 
+        padding: 0.6rem 0.5rem; 
+        font-size: 0.85rem; 
+    }
+    
+    .page-room .ratio { 
+        border-radius: 12px; 
+        overflow: hidden; 
+    }
+    
+    .page-room .room-header-cta .hotel-price { 
+        font-size: 1rem; 
+    }
+    
+    /* Stack header elements on mobile */
+    .page-room .room-header-cta .d-inline-flex {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    .page-room .room-header-cta .btn-view {
+        width: 100%;
+    }
+    
+    /* Form inputs responsive */
+    .page-room .form-label {
+        font-size: 0.85rem !important;
+    }
+    
+    .page-room .form-control,
+    .page-room .form-select {
+        font-size: 0.9rem !important;
+        padding: 0.6rem !important;
+    }
+    
+    /* Booking details responsive */
+    .page-room .d-flex.gap-3.flex-wrap > div {
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    /* Payment button full width */
+    .page-room .col-sm-auto.ms-sm-auto {
+        width: 100%;
+    }
+    
+    .page-room .col-sm-auto.ms-sm-auto .btn {
+        width: 100%;
+    }
+    
+    /* Room type selection stack */
+    .page-room .col-md-6 {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Room cards grid spacing consistency on large screens */
+@media (min-width: 992px) {
+    .page-room .row.g-3 > [class*='col-'] { 
+        display: flex; 
+    }
+    
+    .page-room .row.g-3 > [class*='col-'] > .hotel-card { 
+        width: 100%; 
+    }
+}
+
+/* ===================== PAYMENT SECTION STYLES ===================== */
+.payment-section {
+    padding: 3rem 0;
+    min-height: 100vh;
+}
+
+/* Animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-slide-in {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* Booking Card */
+.booking-card-section {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.booking-card-section .hotel-content {
+    padding: 2rem;
+}
+
+/* Modern Form Inputs */
+.form-control-modern,
+.form-select.form-control-modern {
+    background: var(--bg-card-alt);
+    border: 2px solid var(--border-color);
+    color: var(--text-light);
+    padding: 0.875rem 1.125rem;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    height: auto;
+    min-height: 52px;
+}
+
+.form-control-modern:hover,
+.form-select.form-control-modern:hover {
+    border-color: var(--primary-green);
+    background: var(--bg-card);
+}
+
+.form-control-modern:focus,
+.form-select.form-control-modern:focus {
+    background: var(--bg-card);
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+    color: var(--text-light);
+    outline: none;
+}
+
+.form-control-modern::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.form-label {
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.2px;
+    display: block;
+}
+
+.form-label i {
+    color: var(--primary-green);
+    font-size: 1.1rem;
+}
+
+/* Booking Form Layout */
+.booking-form .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.booking-form .row > [class*='col-'] {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+/* Back Button */
+.btn-back {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-light);
+    padding: 0.625rem 1.5rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.btn-back:hover {
+    background: var(--bg-card-alt);
+    border-color: var(--primary-green);
+    color: var(--primary-green);
+    transform: translateX(-4px);
+}
+
+.btn-back i {
+    transition: transform 0.3s ease;
+}
+
+.btn-back:hover i {
+    transform: translateX(-3px);
+}
+
+/* Additional Info Section */
+.additional-info {
+    background: linear-gradient(135deg, var(--bg-card-alt) 0%, var(--bg-card) 100%);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.additional-info h5 {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.additional-info h5 i {
+    color: var(--primary-green);
+    font-size: 1.3rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.info-item:hover {
+    background: rgba(16, 185, 129, 0.05);
+    transform: translateX(4px);
+}
+
+.info-item i {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Price Summary Card */
+.price-summary-card {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-alt) 100%);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.price-summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.price-summary-card .hotel-content {
+    padding: 2rem;
+}
+
+.price-breakdown {
+    background: var(--bg-card-alt);
+    padding: 1.5rem;
+    border-radius: 14px;
+    border: 1px solid var(--border-color-soft);
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.875rem 0;
+}
+
+.price-label {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.price-value {
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.price-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--border-color) 50%, transparent 100%);
+    margin: 1rem 0;
+}
+
+.price-total {
+    margin-top: 0.75rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--primary-green);
+}
+
+.price-total .price-label {
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.price-total .price-value {
+    color: var(--primary-green);
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+
+/* Action Buttons */
+.btn-calculate {
+    background: var(--bg-card-alt);
+    border: 2px solid var(--primary-green);
+    color: var(--primary-green);
+    padding: 0.875rem 1.75rem;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-calculate:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(16, 185, 129, 0.35);
+}
+
+.btn-calculate:active {
+    transform: translateY(-1px);
+}
+
+.btn-pay {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+    border: none;
+    color: white;
+    padding: 1rem 1.75rem;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-pay::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-pay:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-pay:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(16, 185, 129, 0.45);
+}
+
+.btn-pay:active {
+    transform: translateY(-2px);
+}
+
+.secure-payment {
+    text-align: center;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.secure-payment i {
+    color: var(--primary-green);
+    font-size: 1.2rem;
+}
+
+/* ===================== PAYMENT SECTION RESPONSIVE ===================== */
+
+@media (max-width: 1200px) {
+    .booking-card-section .hotel-content,
+    .price-summary-card .hotel-content {
+        padding: 1.75rem;
+    }
+    
+    .form-control-modern,
+    .form-select.form-control-modern {
+        padding: 0.8rem 1rem;
+        min-height: 50px;
+    }
+}
+
+@media (max-width: 992px) {
+    .payment-section {
+        padding: 2rem 0;
+    }
+    
+    .price-summary-card {
+        position: relative !important;
+        top: 0 !important;
+        margin-top: 1.5rem;
+    }
+    
+    .booking-card-section .hotel-content,
+    .price-summary-card .hotel-content {
+        padding: 1.5rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .booking-form .row > [class*='col-'] {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-section {
+        padding: 1.5rem 0;
+    }
+    
+    .booking-card-section .hotel-content,
+    .price-summary-card .hotel-content {
+        padding: 1.25rem;
+    }
+    
+    .btn-back {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        padding: 0.75rem 1.25rem;
+    }
+    
+    .additional-info {
+        padding: 1.5rem;
+    }
+    
+    .additional-info h5 {
+        font-size: 1rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .price-breakdown {
+        padding: 1.25rem;
+    }
+    
+    .price-item {
+        padding: 0.75rem 0;
+    }
+    
+    .price-value {
+        font-size: 0.95rem;
+    }
+    
+    .price-total .price-value {
+        font-size: 1.5rem;
+    }
+    
+    .form-control-modern,
+    .form-select.form-control-modern {
+        padding: 0.75rem 0.9rem;
+        min-height: 48px;
+        font-size: 0.95rem;
+    }
+    
+    .form-label {
+        font-size: 0.9rem;
+        margin-bottom: 0.65rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .payment-section {
+        padding: 1rem 0;
+    }
+    
+    .booking-card-section .hotel-content,
+    .price-summary-card .hotel-content {
+        padding: 1rem;
+    }
+    
+    .booking-form .row {
+        row-gap: 1.5rem;
+    }
+    
+    .form-control-modern,
+    .form-select.form-control-modern {
+        padding: 0.7rem 0.85rem;
+        min-height: 46px;
+        font-size: 0.9rem;
+    }
+    
+    .form-label {
+        font-size: 0.85rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .info-item {
+        font-size: 0.875rem;
+        padding: 0.375rem;
+    }
+    
+    .info-item i {
+        font-size: 1.1rem;
+    }
+    
+    .additional-info {
+        padding: 1.25rem;
+    }
+    
+    .additional-info h5 {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+    
+    .btn-calculate,
+    .btn-pay {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .btn-back {
+        padding: 0.65rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .price-label {
+        font-size: 0.85rem;
+    }
+    
+    .price-value {
+        font-size: 0.9rem;
+    }
+    
+    .price-total .price-label {
+        font-size: 0.95rem;
+    }
+    
+    .price-total .price-value {
+        font-size: 1.35rem;
+    }
+    
+    .price-breakdown {
+        padding: 1rem;
+    }
+    
+    .secure-payment {
+        padding: 0.875rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .form-control-modern,
+    .form-select.form-control-modern {
+        padding: 0.65rem 0.75rem;
+        min-height: 44px;
+        font-size: 0.875rem;
+    }
+    
+    .form-label {
+        font-size: 0.8rem;
+    }
+    
+    .price-total .price-value {
+        font-size: 1.2rem;
+    }
+}

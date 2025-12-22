@@ -92,7 +92,6 @@ window.githubSigninBtn = githubSigninBtn;
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const passwordRegex = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[^\s]+$/;
-let allUsersLocal = JSON.parse(localStorage.getItem('users'))
 let allUsers = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,12 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
     onValue(usersRef, (snapshot) => {
         snapshot.forEach((childSnapshot) => {
             const userData = childSnapshot.val();
-            allUsers.push(userData);
+            allUsers.push(userData);         
         });
     });
-    if (allUsers.length === 0) {
-        allUsers = allUsersLocal
-    }
 })
 
 

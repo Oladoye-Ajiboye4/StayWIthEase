@@ -19,6 +19,7 @@ const auth = getAuth();
 let activeUser = []
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
 
   try {
@@ -194,9 +195,9 @@ const getRandomDesc = () => {
 };
 
 const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'NGN',
-      });
+  style: 'currency',
+  currency: 'NGN',
+});
 
 
 const useMapApi = () => {
@@ -230,7 +231,7 @@ const useMapApi = () => {
             console.log('Nearby Hotels:', placeData);
             if (placeData.features.length !== 0) {
               hotelList.innerHTML = '';
-              locationName.textContent = userSearch;
+              sectionTitle.textContent = `Showing results for "${userSearch}"`;
 
               // Hide loading state
               searchBtn.classList.remove('loading');
@@ -238,7 +239,7 @@ const useMapApi = () => {
 
               let allMapData = []
 
-              placeData.features.forEach(hotel => {
+              placeData.features.forEach((hotel, hotelId) => {
                 const hLat = hotel.properties.lat;
                 const hLon = hotel.properties.lon;
                 const name = hotel.properties.name || "Unnamed Hotel";
@@ -246,7 +247,6 @@ const useMapApi = () => {
                 const hotelDp = getRandomHotelImage()
                 const location = hotel.properties.state
                 const hotelDes = getRandomDesc()
-                let hotelId = 0
 
                 //create hotel in the list
                 hotelList.innerHTML += `
@@ -290,7 +290,6 @@ const useMapApi = () => {
                   hotelDes: hotelDes
                 }
                 allMapData.push(mapObj)
-                hotelId += 1
                 const marker = L.marker([hLat, hLon]);
 
                 // FIXED URL TYPO
@@ -314,6 +313,7 @@ const useMapApi = () => {
           })
           .catch(error => {
             console.error('Error fetching hotels:', error);
+            alert("Error fetching hotels. Please try again.");
             // Hide loading state on error
             searchBtn.classList.remove('loading');
             searchText.style.opacity = '1';
@@ -327,6 +327,7 @@ const useMapApi = () => {
     })
     .catch(error => {
       console.error('Error fetching geocoding data:', error);
+      alert("Error fetching location data. Please try again.");
       // Hide loading state on error
       const searchBtn = document.getElementById('searchBtn');
       const searchText = document.getElementById('searchText');
@@ -342,6 +343,7 @@ window.useMapApi = useMapApi;
 const showRoom = (hotelId) => {
   const allMapData = JSON.parse(localStorage.getItem('allMapData'))
   const activeHotel = allMapData[hotelId]
+  console.log(activeHotel)
   localStorage.setItem('activeHotel', JSON.stringify(activeHotel))
   setTimeout(() => {
     window.location.href = 'room.html'
@@ -361,6 +363,7 @@ const logOut = () => {
   }).catch((error) => {
     // An error happened.
     console.log(error)
+    alert('Error signing out. Please try again.')
   });
 
 }

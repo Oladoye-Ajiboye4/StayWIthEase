@@ -221,7 +221,9 @@ const saveUser = (name, email, imageUrl) => {
     username: name,
     email: email,
     profile_picture: imageUrl,
-    wallet: 0,
+    wallet: {
+      amount: 0
+    },
     dbId: userId,
 
   }
@@ -250,7 +252,9 @@ const savePasswordUser = (name, email, password, imageUrl) => {
     email: email,
     password: password,
     profile_picture: imageUrl,
-    wallet: 0,
+    wallet: {
+      amount: 0
+    },
     dbId: userId,
 
   }
