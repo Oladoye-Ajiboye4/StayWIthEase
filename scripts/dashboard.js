@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       walletBalance.innerHTML = activeUser.wallet.amount ? formatter.format(activeUser.wallet.amount) : "₦0.00";
-
+      navWalletBalance.innerHTML = walletBalance.innerHTML
     }
   } catch (error) {
     console.log(error)
@@ -113,7 +113,6 @@ const updateFirebaseWallet = (amountToAdd) => {
       activeUser.wallet = newWallet;
       localStorage.setItem('activeUser', JSON.stringify(activeUser));
       alert("Wallet funded successfully!");
-      console.log('Wallet updated.');
       document.getElementById('depositAmount').value = '';
     })
     .catch((error) => {
@@ -223,14 +222,14 @@ const useMapApi = () => {
         // Move the map to the new city found
         map.setView([lat, lon], 13);
 
-        const placeUrl = `https://api.geoapify.com/v2/places?categories=accommodation,building.accommodation&filter=circle:${lon},${lat},10000&limit=50&apiKey=${apiKey}`;
+        const placeUrl = `https://api.geoapify.com/v2/places?categories=accommodation,building.accommodation&filter=circle:${lon},${lat},10000&limit=100&apiKey=${apiKey}`;
 
         fetch(placeUrl)
           .then(response => response.json())
           .then(placeData => {
             console.log('Nearby Hotels:', placeData);
             if (placeData.features.length !== 0) {
-              hotelList.innerHTML = '';
+              let html = '<div class="row g-3">';
               sectionTitle.textContent = `Showing results for "${userSearch}"`;
 
               // Hide loading state
@@ -248,34 +247,36 @@ const useMapApi = () => {
                 const location = hotel.properties.state
                 const hotelDes = getRandomDesc()
 
-                //create hotel in the list
-                hotelList.innerHTML += `
-                  <div class="hotel-card">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="${hotelDp}" alt="Hotel" class="hotel-image">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="hotel-content">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <div>
-                                        <h3 class="hotel-name">${name}</h3>
-                                        <p class="hotel-location"><i class="bi bi-geo-alt me-1"></i>${location}</p>
-                                    </div>
-                                    <div class="hotel-rating">
-                                        <i class="bi bi-star-fill"></i> 4.9
-                                    </div>
-                                </div>
-                                <p class="hotel-description">${hotelDes}</p>
-                                <div class="hotel-tags">
-                                    <span class="badge">Starts from</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div class="hotel-price">${formatter.format(price)}<span>/night</span></div>
-                                    <a class="btn btn-view" href="" onclick="showRoom(${hotelId})">View Rooms</a>
-                                </div>
-                            </div>
-                        </div>
+                //create hotel in the list with grid
+                html += `
+                  <div class="col-12 col-md-6 col-lg-12">
+                    <div class="hotel-card h-100">
+                      <div class="row g-0">
+                          <div class="col-md-4">
+                              <img src="${hotelDp}" alt="Hotel" class="hotel-image">
+                          </div>
+                          <div class="col-md-8">
+                              <div class="hotel-content">
+                                  <div class="d-flex justify-content-between align-items-start">
+                                      <div>
+                                          <h3 class="hotel-name">${name}</h3>
+                                          <p class="hotel-location"><i class="bi bi-geo-alt me-1"></i>${location}</p>
+                                      </div>
+                                      <div class="hotel-rating">
+                                          <i class="bi bi-star-fill"></i> 4.9
+                                      </div>
+                                  </div>
+                                  <p class="hotel-description">${hotelDes}</p>
+                                  <div class="hotel-tags">
+                                      <span class="badge">Starts from</span>
+                                  </div>
+                                  <div class="d-flex justify-content-between align-items-center mt-3">
+                                      <div class="hotel-price">${formatter.format(price)}<span>/night</span></div>
+                                      <a class="btn btn-view" href="" onclick="showRoom(${hotelId})">View Rooms</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                     </div>
                   </div>
                 `
@@ -306,6 +307,8 @@ const useMapApi = () => {
                 markersLayer.addLayer(marker);
 
               });
+              html += '</div>';
+              hotelList.innerHTML = html;
               localStorage.setItem('allMapData', JSON.stringify(allMapData))
 
             }
@@ -343,7 +346,6 @@ window.useMapApi = useMapApi;
 const showRoom = (hotelId) => {
   const allMapData = JSON.parse(localStorage.getItem('allMapData'))
   const activeHotel = allMapData[hotelId]
-  console.log(activeHotel)
   localStorage.setItem('activeHotel', JSON.stringify(activeHotel))
   setTimeout(() => {
     window.location.href = 'room.html'

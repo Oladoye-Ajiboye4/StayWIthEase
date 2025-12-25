@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         checkInDate = checkIn.value
         checkOutDate = checkOut.value
         duration = ((new Date(checkOutDate).getTime()) - (new Date(checkInDate).getTime())) / (1000 * 3600 * 24);
-        console.log(duration, 'duration')
 
 
     } else {
@@ -141,7 +140,6 @@ const calculateBill = () => {
     checkInDate = checkIn.value
     checkOutDate = checkOut.value
     duration = ((new Date(checkOutDate).getTime()) - (new Date(checkInDate).getTime())) / (1000 * 3600 * 24);
-    console.log(duration, 'duration')
     let durationCost = duration * executivePrice
     nightCount.textContent = duration
     let guestsCount = parseInt(guests.value) || 2;
@@ -263,3 +261,22 @@ const goBack = () => {
 }
 
 window.goBack = goBack
+
+
+const logOut = () => {
+  signOut(auth).then(() => {
+    console.log('Signing out')
+    localStorage.setItem('activeUser', [])
+    setTimeout(() => {
+      window.location.href = "index.html"
+    }, 1000)
+
+  }).catch((error) => {
+    // An error happened.
+    console.log(error)
+    alert('Error signing out. Please try again.')
+  });
+
+}
+
+window.logOut = logOut

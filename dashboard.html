@@ -39,17 +39,17 @@
             </button>
             
             <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav mx-auto justify-content-center flex-lg-row text-start">
                     <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check me-2"></i>My Bookings</a></li>
                     <li class="nav-item"><a class="nav-link" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
                 </ul>
                 
-                <div class="d-flex align-items-center gap-3">
-                    <btn class="btn text-white fw-bold wallet-badge rounded-4" onclick="logOut()">Logout</btn>
+                <div class="d-flex align-items-center gap-3 ms-lg-3 mt-3 mt-lg-0 justify-content-center justify-content-lg-end flex-wrap">
+                    <button class="btn text-white fw-bold wallet-badge rounded-4" onclick="logOut()">Logout</button>
                     <div class="wallet-badge">
                         <i class="bi bi-wallet2"></i>
-                        <span class="fw-bold">₦50,000.00</span>
+                        <span class="fw-bold" id="navWalletBalance">₦50,000.00</span>
                     </div>
                     <div class="user-avatar" id="avatarContainer">
                         <img src="https://ui-avatars.com/api/?name=User&background=10b981&color=fff&bold=true" alt="User">
@@ -59,14 +59,65 @@
         </div>
     </nav>
 
-    <div class="hero-section my-0">
+    <!-- Mobile-only wallet and search (shown < 992px) -->
+    <div class="mobile-banking-section d-lg-none">
+        <div class="container-fluid px-4 py-3">
+            <div class="wallet-card mb-3">
+                        <div class="wallet-header d-flex justify-content-between align-items-start">
+                            <h4 class="mb-2"><span id="username">User</span>'s Wallet</h4>
+                            <span class="badge bg-success bg-opacity-25 text-success fw-semibold">Active</span>
+                        </div>
+                        <div class="wallet-balance">
+                            <p class="wallet-label">Current Balance</p>
+                            <h2 class="wallet-amount" id="walletBalance">NGN 0.00</h2>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-deposit w-100" id="fundAccountBtn" data-bs-toggle="modal" data-bs-target="#fundAccountModal">
+                                    <i class="bi bi-plus-circle me-1"></i>Fund
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-deposit w-100">
+                                    <i class="bi bi-arrow-left-right me-1"></i>Transfer
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-deposit w-100">
+                                    <i class="bi bi-cash-coin me-1"></i>Withdraw
+                                </button>
+                            </div>
+                        </div>
+                        <a href="#" class="transaction-link mt-3 d-inline-flex">Transactions <i class="bi bi-arrow-right"></i></a>
+                    </div>
+            
+            <div class="search-card mb-3">
+                        <div class="row g-3">
+                        <div class="col-md-9">
+                            <div class="search-input">
+                                <i class="bi bi-geo-alt"></i>
+                                <input id="userSearch" type="text" class="form-control py-2" placeholder="Lagos, Nigeria" value="Lagos, Nigeria">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button onclick="useMapApi()" class="btn btn-search w-100" id="searchBtn">
+                                <span id="searchText"><i class="bi bi-search"></i> Search</span>
+                                <span class="spinner"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Desktop hero section (hidden on mobile) -->
+    <div class="hero-section my-0 d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-10 text-center text-md-start">
                     <h1 class="hero-title">Find Your Perfect Stay in Nigeria</h1>
                     <p class="hero-subtitle">Discover luxury and comfort with Stay With Ease</p>
                     
-                    <!-- Wallet card moved to top for a bank-app feel -->
                     <div class="wallet-card mb-3">
                         <div class="wallet-header d-flex justify-content-between align-items-start">
                             <h4 class="mb-2"><span id="username">User</span>'s Wallet</h4>
@@ -101,13 +152,12 @@
                             <div class="col-md-9">
                                 <div class="search-input">
                                     <i class="bi bi-geo-alt"></i>
-                                    <input id="userSearch" type="text" class="form-control py-2" placeholder="Lagos, Nigeria" value="Lagos, Nigeria">
+                                    <input type="text" class="form-control py-2" placeholder="Lagos, Nigeria" value="Lagos, Nigeria">
                                 </div>
                             </div>
-                            <!--  -->
                             <div class="col-md-3">
-                                <button onclick="useMapApi()" class="btn btn-search w-100" id="searchBtn">
-                                    <span id="searchText"><i class="bi bi-search"></i> Search</span>
+                                <button class="btn btn-search w-100">
+                                    <span><i class="bi bi-search"></i> Search</span>
                                     <span class="spinner"></span>
                                 </button>
                             </div>
@@ -124,12 +174,16 @@
         </div>
 
         <div class="results-container">
-            <div class="hotel-list-column" id="hotelList">
-                <div class="empty-state">
-                    <div class="empty-state-content">
-                        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=300&fit=crop" alt="Hotel room" class="empty-state-image">
-                        <h3 class="empty-state-title">Search for Your Perfect Stay</h3>
-                        <p class="empty-state-text">Enter a location in the search box above to discover amazing hotels and accommodations near you.</p>
+            <div class="hotel-list-column">
+                <div class="row g-3" id="hotelList">
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <div class="empty-state-content">
+                                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=300&fit=crop" alt="Hotel room" class="empty-state-image">
+                                <h3 class="empty-state-title">Search for Your Perfect Stay</h3>
+                                <p class="empty-state-text">Enter a location in the search box above to discover amazing hotels and accommodations near you.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

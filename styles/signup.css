@@ -162,35 +162,3 @@
                 padding-bottom: 2rem !important;
             }
         }
-
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #0f231c;
-                color: #e2e8f0;
-            }
-            .navbar-brand, .text-primary {
-                 color: #fff !important;
-            }
-            .text-muted {
-                color: #94a3b8 !important;
-            }
-            .form-control, .input-group-text {
-                background-color: #334155;
-                color: #e2e8f0;
-                border-color: #475569;
-            }
-            .form-control::placeholder {
-                color: #94a3b8;
-            }
-            .btn-outline-secondary {
-                background-color: #475569;
-                border-color: #475569;
-                color: #e2e8f0;
-            }
-            .btn-outline-secondary:hover {
-                 background-color: #5a6a82;
-            }
-            .form-separator {
-                color: #94a3b8;
-            }
-        }
