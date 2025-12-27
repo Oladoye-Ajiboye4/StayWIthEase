@@ -16,24 +16,19 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-let activeUser = []
 
-
+let activeUser = [];
 
 document.addEventListener('DOMContentLoaded', () => {
 
   try {
-    let activeUserRaw = localStorage.getItem('activeUser')
-    if (activeUserRaw) {
-      activeUser = JSON.parse(activeUserRaw) || [];
+    const db = JSON.parse(localStorage.getItem('activeUser'));
+    if (db) {
+      activeUser = db;
 
-    } else {
-      console.log(activeUserRaw, activeUser)
-      activeUser = []
-    }
-    if (activeUser) {
       avatarContainer.innerHTML = `<img src="${activeUser.photoURL || activeUser.profile_picture}" alt="${activeUser.displayName || activeUser.username}">`;
-      username.textContent = activeUser.displayName || activeUser.username;
+      const activeUsername = document.getElementById('username');
+      activeUsername.innerHTML = activeUser.username || activeUser.displayName;
 
       const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',

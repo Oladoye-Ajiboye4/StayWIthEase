@@ -19,6 +19,16 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
+let allUsers = [];
+
+const dataBase = getDatabase();
+const userRef = ref(dataBase, 'users/');
+onValue(userRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data != null) {
+        allUsers = data;
+    }
+});
 const googleSigninBtn = () => {
     signInWithPopup(auth, provider)
         .then((result) => {
@@ -27,27 +37,44 @@ const googleSigninBtn = () => {
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
-            user.dbId = userId
-            window.localStorage.setItem('activeUser', JSON.stringify(user))
-            setTimeout(() => {
-                window.location.href = "dashboard.html";
-            }, 1000);
+            const mainUser = allUsers.find(u => u.email === user.email);
+            if (mainUser) {
+                window.localStorage.setItem('activeUser', JSON.stringify(mainUser))
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1000);
+            } else {
+                mainErrorMessage.style.display = 'block';
+                mainErrorMessage.textContent = 'No account found with this email. Please sign up first.';
+                setTimeout(() => {
+                    mainErrorMessage.style.display = 'none';
+                }, 5000);
+                return;
+            }
+
 
         }).catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
-            const email = error.customData.email;
+            const email = error.email;
             const credential = GoogleAuthProvider.credentialFromError(error);
 
-            if (errorCode || email || credential) {
+            if (email) {
+                mainErrorMessage.style.display = 'block';
+                mainErrorMessage.textContent = 'No account found with this email. Please sign up first.';
+                setTimeout(() => {
+                    mainErrorMessage.style.display = 'none';
+                }, 5000);
+                return;
+            } else if (errorCode || errorMessage || credential) {
                 mainErrorMessage.style.display = 'block';
                 mainErrorMessage.textContent = 'An error occurred during sign-in. Please try again.';
                 setTimeout(() => {
                     mainErrorMessage.style.display = 'none';
                 }, 2000);
             }
-            console.log(errorCode, errorMessage, email);
+            console.log(errorCode, errorMessage, email, credential);
         });
 }
 window.googleSigninBtn = googleSigninBtn;
@@ -61,20 +88,29 @@ const githubSigninBtn = () => {
 
             // The signed-in user info.
             const user = result.user;
-            user.dbId = userId
-            window.localStorage.setItem('activeUser', JSON.stringify(user))
+            const mainUser = allUsers.find(u => u.email === user.email);
+            if (mainUser) {
+                window.localStorage.setItem('activeUser', JSON.stringify(mainUser))
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1000);
+            } else {
+                mainErrorMessage.style.display = 'block';
+                mainErrorMessage.textContent = 'No account found with this email. Please sign up first.';
+                setTimeout(() => {
+                    mainErrorMessage.style.display = 'none';
+                }, 5000);
+                return;
+            }
 
-            setTimeout(() => {
-                window.location.href = "dashboard.html";
-            }, 1000);
         }).catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
-            const email = error.customData.email;
+            const email = error.email;
             const credential = GithubAuthProvider.credentialFromError(error);
 
-            if (errorCode || email || credential) {
+            if (errorCode || errorMessage || email || credential) {
                 mainErrorMessage.style.display = 'block';
                 mainErrorMessage.textContent = 'An error occurred during sign-in. Please try again.';
                 setTimeout(() => {
@@ -92,7 +128,6 @@ window.githubSigninBtn = githubSigninBtn;
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const passwordRegex = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[^\s]+$/;
-let allUsers = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     const db = getDatabase();
@@ -100,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     onValue(usersRef, (snapshot) => {
         snapshot.forEach((childSnapshot) => {
             const userData = childSnapshot.val();
-            allUsers.push(userData);         
+            allUsers.push(userData);
         });
     });
 })
@@ -121,70 +156,57 @@ const manualSignin = () => {
             emailError.style.display = 'none'
         }, 2000)
 
-    } else if (!passwordRegex.test(password.value)) {
-        passwordError.style.display = 'block'
-
-        setTimeout(() => {
-            passwordError.style.display = 'none'
-        }, 2000)
     } else {
-        console.log(allUsers)
-        if (!allUsers) {
-            mainErrorMessage.style.display = 'block'
-            mainErrorMessage.textContent = 'User does not exit'
-            setTimeout(() => {
-                mainErrorMessage.style.display = 'none'
-            }, 2000)
-        } else {
-            const userEmail = email.value.trim()
-            const currentUser = allUsers.find(user => user.email === userEmail);
-            if (currentUser) {
-                if (currentUser.password === password.value) {
-                    submitBtn.style.display = 'none'
-                    formGroup.innerHTML += `<button class="bg-success border-0 btn btn-primary btn-lg w-100 mt-3 fw-semibold" type="button" disabled id="loadingBtn">
-                                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                                            <span role="status">Loading...</span>
-                                        </button>`
+        const userEmail = email.value.trim()
+        const userPassword = password.value.trim()
 
+        submitBtn.style.display = 'none'
+        formGroup.innerHTML += `<button class="bg-success border-0 btn btn-primary btn-lg w-100 mt-3 fw-semibold" type="button" disabled id="loadingBtn">
+                                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                <span role="status">Loading...</span>
+                            </button>`
 
-                    signInWithEmailAndPassword(auth, userEmail, currentUser.password)
-                        .then((userCredential) => {
-                            // Signed in 
-                            const user = userCredential.user;
-                            localStorage.setItem('activeUser', JSON.stringify(currentUser))
-
-                            setTimeout(() => {
-                                window.location.href = 'dashboard.html'
-
-                            }, 500)
-                        })
-                        .catch((error) => {
-                            const errorCode = error.code;
-                            const errorMessage = error.message;
-                            console.log('Error:', errorCode, errorMessage);
-                            if (errorCode) {
-                                mainErrorMessage.style.display = 'block'
-                                mainErrorMessage.textContent = 'Error signing in. Please try again.'
-                                setTimeout(() => {
-                                    mainErrorMessage.style.display = 'none'
-                                }, 2000)
-                            }
-
-                        });
-                } else {
-                    passwordError.style.display = 'block'
+        signInWithEmailAndPassword(auth, userEmail, userPassword)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                const currentUser = allUsers.find(u => u.email === userEmail);
+                if (currentUser) {
+                    localStorage.setItem('activeUser', JSON.stringify(currentUser))
                     setTimeout(() => {
-                        passwordError.style.display = 'none'
+                        window.location.href = 'dashboard.html'
+                    }, 500)
+                } else {
+                    mainErrorMessage.style.display = 'block';
+                    mainErrorMessage.textContent = 'No account found with this email. Please sign up first.';
+                    setTimeout(() => {
+                        mainErrorMessage.style.display = 'none';
+                    }, 5000);
+                    return;
+                }
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log('Error:', errorCode, errorMessage);
+                submitBtn.style.display = 'block'
+                const loadingBtn = document.getElementById('loadingBtn');
+                if (loadingBtn) loadingBtn.remove();
+
+                if (errorCode === 'auth/user-not-found' || errorCode === 'auth/invalid-credential') {
+                    mainErrorMessage.style.display = 'block'
+                    mainErrorMessage.textContent = 'Invalid email or password.'
+                    setTimeout(() => {
+                        mainErrorMessage.style.display = 'none'
+                    }, 2000)
+                } else {
+                    mainErrorMessage.style.display = 'block'
+                    mainErrorMessage.textContent = 'Error signing in. Please try again.'
+                    setTimeout(() => {
+                        mainErrorMessage.style.display = 'none'
                     }, 2000)
                 }
-            } else {
-                mainErrorMessage.style.display = 'block'
-                mainErrorMessage.textContent = 'User does not exit'
-                setTimeout(() => {
-                    mainErrorMessage.style.display = 'none'
-                }, 2000)
-            }
-        }
+            });
     }
 }
 
