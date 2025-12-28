@@ -35,47 +35,63 @@ checkIn.setAttribute('min', setCheckInDate);
 checkOut.setAttribute('min', setCheckOutDate);
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (activeHotel) {
+    const activeUser = JSON.parse(localStorage.getItem('activeUser'));
+    if (activeUser) {
+        avatarContainer.innerHTML = `<img src="${activeUser.photoURL || activeUser.profile_picture}" alt="${activeUser.displayName || activeUser.username}">`;
 
-        hotelName.textContent = activeHotel.name
-        location.textContent = activeHotel.location
-        price.innerHTML = formatter.format(activeHotel.price) + '<span>/night</span>'
-        hotelCard.innerHTML = `
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'NGN',
+        });
+        navWalletBalance.innerHTML = formatter.format(activeUser.wallet.amount);
+
+        if (activeHotel) {
+
+            hotelName.textContent = activeHotel.name
+            location.textContent = activeHotel.location
+            price.innerHTML = formatter.format(activeHotel.price) + '<span>/night</span>'
+            hotelCard.innerHTML = `
         <img class="hotel-card w-100" src="${activeHotel.hotelDp}" alt="Main Room" style="height: 100% !important;" />
     `
-        hotelDescription.textContent = activeHotel.hotelDes
+            hotelDescription.textContent = activeHotel.hotelDes
 
-        // Initialize map with hotel location
-        if (activeHotel.lat && activeHotel.lon) {
-            let hotelMap = L.map('roomMapContainer').setView([activeHotel.lat, activeHotel.lon], 20);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap'
-            }).addTo(hotelMap);
+            // Initialize map with hotel location
+            if (activeHotel.lat && activeHotel.lon) {
+                let hotelMap = L.map('roomMapContainer').setView([activeHotel.lat, activeHotel.lon], 20);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(hotelMap);
 
-            const marker = L.marker([activeHotel.lat, activeHotel.lon]);
-            marker.bindPopup(`
+                const marker = L.marker([activeHotel.lat, activeHotel.lon]);
+                marker.bindPopup(`
             <strong>${activeHotel.name}</strong><br/>
             ${activeHotel.location}<br/>
             <a href="https://www.google.com/maps?q=${activeHotel.lat},${activeHotel.lon}" target="_blank" style="color: #10b981;">Open in Google Maps</a>
         `);
-            marker.addTo(hotelMap);
+                marker.addTo(hotelMap);
+            }
+
+            executivePrice = activeHotel.price + (0.1 * activeHotel.price);
+            executiveRoomPrice.textContent = formatter.format(executivePrice);
+            deluxePrice = activeHotel.price + (0.2 * activeHotel.price);
+            deluxeRoomPrice.textContent = formatter.format(deluxePrice);
+            regularRoomPrice.textContent = formatter.format(activeHotel.price);
+
+            checkInDate = checkIn.value
+            checkOutDate = checkOut.value
+            duration = ((new Date(checkOutDate).getTime()) - (new Date(checkInDate).getTime())) / (1000 * 3600 * 24);
+
+
+        } else {
+            alert('Hotel details not available')
+            setTimeout(() => {
+                window.location.href = 'dashboard.html'
+            }, 500)
         }
-
-        executivePrice = activeHotel.price + (0.1 * activeHotel.price);
-        executiveRoomPrice.textContent = formatter.format(executivePrice);
-        deluxePrice = activeHotel.price + (0.2 * activeHotel.price);
-        deluxeRoomPrice.textContent = formatter.format(deluxePrice);
-        regularRoomPrice.textContent = formatter.format(activeHotel.price);
-
-        checkInDate = checkIn.value
-        checkOutDate = checkOut.value
-        duration = ((new Date(checkOutDate).getTime()) - (new Date(checkInDate).getTime())) / (1000 * 3600 * 24);
-
-
     } else {
-        alert('Hotel details not available')
+        alert('Please log in to continue.')
         setTimeout(() => {
-            window.location.href = 'dashboard.html'
+            window.location.href = 'login.html'
         }, 500)
     }
 });
@@ -171,6 +187,10 @@ const continuePayment = () => {
             backdrop: 'static',
             keyboard: false
         });
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'), {
+            backdrop: 'static',
+            keyboard: false
+        });
         loadingModal.show();
 
         let activeUser = JSON.parse(localStorage.getItem('activeUser'))
@@ -208,10 +228,11 @@ const continuePayment = () => {
                 })
                     .then((result) => {
                         console.log('Firebase wallet updated successfully');
+                        loadingModal.hide();
+                        successModal.show();
                         setTimeout(() => {
-                            loadingModal.hide();
                             window.location.href = 'dashboard.html'
-                        }, 500)
+                        }, 2000)
                     })
                     .catch((error) => {
                         console.error('Error updating Firebase wallet:', error);
@@ -263,18 +284,18 @@ window.goBack = goBack
 
 
 const logOut = () => {
-  signOut(auth).then(() => {
-    console.log('Signing out')
-    localStorage.setItem('activeUser', [])
-    setTimeout(() => {
-      window.location.href = "index.html"
-    }, 1000)
+    signOut(auth).then(() => {
+        console.log('Signing out')
+        localStorage.setItem('activeUser', [])
+        setTimeout(() => {
+            window.location.href = "index.html"
+        }, 1000)
 
-  }).catch((error) => {
-    // An error happened.
-    console.log(error)
-    alert('Error signing out. Please try again.')
-  });
+    }).catch((error) => {
+        // An error happened.
+        console.log(error)
+        alert('Error signing out. Please try again.')
+    });
 
 }
 

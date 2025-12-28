@@ -11,6 +11,13 @@
   <link href="styles/room.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    @keyframes popIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      60% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
 </head>
 
 <body class="page-room">
@@ -52,7 +59,7 @@
           <button class="btn text-white fw-bold wallet-badge rounded-4" onclick="logOut()">Logout</button>
           <div class="wallet-badge">
             <i class="bi bi-wallet2"></i>
-            <span class="fw-bold">₦50,000.00</span>
+            <span class="fw-bold" id="navWalletBalance">₦50,000.00</span>
           </div>
           <div class="user-avatar" id="avatarContainer">
             <img src="https://ui-avatars.com/api/?name=User&background=10b981&color=fff&bold=true" alt="User">
@@ -336,6 +343,21 @@
             </div>
             <h5 class="text-white mt-3">Processing Payment...</h5>
             <p class="text-white-50">Please wait while we process your booking</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg" style="animation: popIn 0.4s ease;">
+          <div class="modal-body text-center p-4 p-md-5">
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 70px; height: 70px; background: rgba(16, 185, 129, 0.1);">
+              <i class="bi bi-check2-circle" style="font-size: 2.2rem; color: #10b981;"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Booking Confirmed!</h5>
+            <p class="text-muted mb-0">Your reservation has been secured. Redirecting…</p>
           </div>
         </div>
       </div>

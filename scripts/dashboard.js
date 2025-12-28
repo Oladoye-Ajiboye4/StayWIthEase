@@ -18,6 +18,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
 let activeUser = [];
+const activeUsername = document.querySelectorAll('.username');
+const walletBalance = document.querySelectorAll('.walletBalance');
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -27,15 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
       activeUser = db;
 
       avatarContainer.innerHTML = `<img src="${activeUser.photoURL || activeUser.profile_picture}" alt="${activeUser.displayName || activeUser.username}">`;
-      const activeUsername = document.getElementById('username');
-      activeUsername.innerHTML = activeUser.username || activeUser.displayName;
+      activeUsername.forEach(element => {
+        element.innerHTML = activeUser.username || activeUser.displayName;
+      });
 
       const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'NGN',
       });
 
-      walletBalance.innerHTML = activeUser.wallet.amount ? formatter.format(activeUser.wallet.amount) : "₦0.00";
+      walletBalance.forEach(element => {
+        element.innerHTML = formatter.format(activeUser.wallet.amount);
+      });
+
       navWalletBalance.innerHTML = walletBalance.innerHTML
     }
   } catch (error) {
@@ -105,7 +111,9 @@ const updateFirebaseWallet = (amountToAdd) => {
 
       activeUser.wallet = newWallet;
       localStorage.setItem('activeUser', JSON.stringify(activeUser));
-      walletBalance.innerHTML = formatter.format(activeUser.wallet.amount);
+      walletBalance.forEach(element => {
+        element.innerHTML = formatter.format(activeUser.wallet.amount);
+      });
       navWalletBalance.innerHTML = walletBalance.innerHTML;
       alert("Wallet funded successfully!");
       document.getElementById('depositAmount').value = '';
@@ -222,7 +230,6 @@ const useMapApi = () => {
         fetch(placeUrl)
           .then(response => response.json())
           .then(placeData => {
-            console.log('Nearby Hotels:', placeData);
             if (placeData.features.length !== 0) {
               let html = '<div class="row g-3">';
               sectionTitle.textContent = `Showing results for "${userSearch}"`;
@@ -266,7 +273,7 @@ const useMapApi = () => {
                                   </div>
                                   <div class="d-flex justify-content-between align-items-center mt-3">
                                       <div class="hotel-price">${formatter.format(price)}<span>/night</span></div>
-                                      <a class="btn btn-view" href="" onclick="showRoom(${hotelId})">View Rooms</a>
+                                      <a class="btn btn-view" onclick="showRoom(${hotelId})">View Rooms</a>
                                   </div>
                               </div>
                           </div>
