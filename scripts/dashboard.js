@@ -103,9 +103,10 @@ const updateFirebaseWallet = (amountToAdd) => {
         currency: 'NGN',
       });
 
-      walletBalance.innerHTML = formatter.format(newWallet.amount);
       activeUser.wallet = newWallet;
       localStorage.setItem('activeUser', JSON.stringify(activeUser));
+      walletBalance.innerHTML = formatter.format(activeUser.wallet.amount);
+      navWalletBalance.innerHTML = walletBalance.innerHTML;
       alert("Wallet funded successfully!");
       document.getElementById('depositAmount').value = '';
     })
