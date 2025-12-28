@@ -254,7 +254,6 @@ const goBack = () => {
     payment.style.display = 'none'
     roomCategories.style.display = 'flex'
 
-    // Smooth scroll to room categories
     setTimeout(() => {
         roomCategories.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);

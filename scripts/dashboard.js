@@ -53,7 +53,6 @@ const payWithPayStack = () => {
     return;
   }
 
-  // Get the value and convert to a Number immediately
   const depositAmount = parseFloat(document.getElementById('depositAmount').value);
   const userEmail = activeUser.email;
 
@@ -66,7 +65,7 @@ const payWithPayStack = () => {
   paystack.newTransaction({
     key: 'pk_test_494c394de29705cccc9b4a3577a7e12e4bb507ca',
     email: userEmail,
-    amount: depositAmount * 100, // Convert to Kobo
+    amount: depositAmount * 100,
 
     onSuccess: (transaction) => {
       updateFirebaseWallet(depositAmount);
@@ -242,7 +241,6 @@ const useMapApi = () => {
                 const location = hotel.properties.state
                 const hotelDes = getRandomDesc()
 
-                //create hotel in the list with grid
                 html += `
                   <div class="col-12 col-md-6 col-lg-12">
                     <div class="hotel-card h-100">
@@ -288,7 +286,6 @@ const useMapApi = () => {
                 allMapData.push(mapObj)
                 const marker = L.marker([hLat, hLon]);
 
-                // FIXED URL TYPO
                 const googleLink = `https://www.google.com/maps?q=${hLat},${hLon}`;
 
                 marker.bindPopup(`
@@ -312,13 +309,11 @@ const useMapApi = () => {
           .catch(error => {
             console.error('Error fetching hotels:', error);
             alert("Error fetching hotels. Please try again.");
-            // Hide loading state on error
             searchBtn.classList.remove('loading');
             searchText.style.opacity = '1';
           });
       } else {
         alert("City not found!");
-        // Hide loading state if city not found
         searchBtn.classList.remove('loading');
         searchText.style.opacity = '1';
       }
@@ -326,7 +321,7 @@ const useMapApi = () => {
     .catch(error => {
       console.error('Error fetching geocoding data:', error);
       alert("Error fetching location data. Please try again.");
-      // Hide loading state on error
+
       const searchBtn = document.getElementById('searchBtn');
       const searchText = document.getElementById('searchText');
       searchBtn.classList.remove('loading');
