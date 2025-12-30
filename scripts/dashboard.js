@@ -1,17 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 import { getDatabase, ref, set, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyD1vLXPDNusc2X6iYSKxwM_2043SiU3i-Q",
-  authDomain: "staywithease-85926.firebaseapp.com",
-  projectId: "staywithease-85926",
-  storageBucket: "staywithease-85926.firebasestorage.app",
-  messagingSenderId: "629558215453",
-  databaseURL: "https://staywithease-85926-default-rtdb.firebaseio.com",
-  appId: "1:629558215453:web:8d9b4f40f44bd8c69f97f4"
-};
+import { firebaseConfig, geoapifyApiKey, paystackPublicKey } from "./config.js";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -42,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         element.innerHTML = formatter.format(activeUser.wallet.amount);
       });
 
-      navWalletBalance.innerHTML = walletBalance.innerHTML
+      navWalletBalance.innerHTML = formatter.format(activeUser.wallet.amount);
     }
   } catch (error) {
     console.log(error)
@@ -62,6 +52,7 @@ const payWithPayStack = () => {
   const depositAmount = parseFloat(document.getElementById('depositAmount').value);
   const userEmail = activeUser.email;
 
+  
   if (!depositAmount || depositAmount <= 100) {
     alert("Please enter a valid amount");
     return;
@@ -69,7 +60,7 @@ const payWithPayStack = () => {
 
   const paystack = new window.PaystackPop();
   paystack.newTransaction({
-    key: 'pk_test_494c394de29705cccc9b4a3577a7e12e4bb507ca',
+    key: paystackPublicKey,
     email: userEmail,
     amount: depositAmount * 100,
 
@@ -203,7 +194,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 
 const useMapApi = () => {
-  const apiKey = '6f05ab3b9dd94123994d0842044d5116';
+  const apiKey = geoapifyApiKey;
   const userSearch = document.getElementById('userSearch').value;
   const searchBtn = document.getElementById('searchBtn');
   const searchText = document.getElementById('searchText');

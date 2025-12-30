@@ -1,17 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 import { getDatabase, ref, set, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyD1vLXPDNusc2X6iYSKxwM_2043SiU3i-Q",
-    authDomain: "staywithease-85926.firebaseapp.com",
-    projectId: "staywithease-85926",
-    storageBucket: "staywithease-85926.firebasestorage.app",
-    messagingSenderId: "629558215453",
-    databaseURL: "https://staywithease-85926-default-rtdb.firebaseio.com",
-    appId: "1:629558215453:web:8d9b4f40f44bd8c69f97f4"
-};
+import { firebaseConfig } from "./config.js";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
