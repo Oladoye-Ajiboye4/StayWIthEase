@@ -10,12 +10,54 @@
     font-size: 1.4rem; 
 }
 
+/* Room Media Section - Desktop alignment */
+.page-room .room-media-main,
+.page-room .room-media-side {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-room .room-media-main .hotel-card,
+.page-room .room-media-side .hotel-card {
+    display: flex;
+    height: 100%;
+    flex: 1;
+}
+
+.page-room .room-media-main .hotel-card {
+    overflow: hidden;
+    border-radius: 16px;
+}
+
 .page-room .room-media-main .hotel-image { 
-    min-height: 320px; 
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+    display: block;
 }
 
 .page-room .room-media-side .hotel-image { 
-    min-height: 200px; 
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Video thumbnail styling */
+.page-room .room-media-side .video-thumbnail {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.page-room .room-media-side .video-thumbnail:hover .hotel-image {
+    transform: scale(1.05);
+}
+
+.page-room .room-media-side .video-thumbnail .hotel-image {
+    transition: transform 0.3s ease;
 }
 
 /* Room type selection cards - responsive button and price */
@@ -73,11 +115,11 @@
     }
     
     .page-room .room-media-main .hotel-image { 
-        min-height: 240px; 
+        min-height: 280px; 
     }
     
     .page-room .room-media-side .hotel-image { 
-        min-height: 180px; 
+        min-height: 200px; 
     }
     
     .page-room .map-card .map-image { 
@@ -204,6 +246,44 @@
     
     .page-room .row.g-3 > [class*='col-'] > .hotel-card { 
         width: 100%; 
+    }
+    
+    /* Desktop room media alignment */
+    .page-room .room-media-main,
+    .page-room .room-media-side {
+        height: 100%;
+    }
+    
+    .page-room .room-media-main .hotel-card {
+        min-height: 500px;
+    }
+    
+    .page-room .room-media-side .hotel-card {
+        flex: 1;
+    }
+    
+    /* Ensure side images take equal space */
+    .page-room .room-media-side .hotel-card:first-child {
+        margin-bottom: 1rem;
+    }
+    
+    .page-room .room-media-side .hotel-image {
+        min-height: 240px;
+    }
+}
+
+/* Extra large desktops */
+@media (min-width: 1200px) {
+    .page-room .room-media-main .hotel-card {
+        min-height: 550px;
+    }
+    
+    .page-room .room-media-main .hotel-image {
+        min-height: 550px;
+    }
+    
+    .page-room .room-media-side .hotel-image {
+        min-height: 265px;
     }
 }
 

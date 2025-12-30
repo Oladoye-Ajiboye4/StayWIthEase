@@ -129,7 +129,7 @@ const updateFirebaseWallet = (amountToAdd) => {
       walletBalance.forEach(element => {
         element.innerHTML = formatter.format(activeUser.wallet.amount);
       });
-      navWalletBalance.innerHTML = walletBalance.innerHTML;
+      navWalletBalance.innerHTML = formatter.format(activeUser.wallet.amount);
       alert("Wallet funded successfully!");
       document.getElementById('depositAmount').value = '';
     })

@@ -89,10 +89,18 @@ const renderBookings = (bookings) => {
         bookingsContainer.innerHTML = '';
         bookingsContainer.innerHTML = `
         <div class="empty-state">
-            <img src="https://images.unsplash.com/photo-1631049307038-da5ec5d9cb27?w=400&h=300&fit=crop" alt="No bookings" class="empty-state-image">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop&auto=format" 
+                 alt="Cozy empty hotel room" 
+                 class="empty-state-image">
             <h3 class="empty-state-title">No Bookings Yet</h3>
-            <p class="empty-state-text">You haven't made any bookings yet. Start exploring and book your perfect stay!</p>
-            <a href="dashboard.html" class="btn btn-success mt-3">Browse Hotels</a>
+            <p class="empty-state-text">
+                Start your journey with Stay With Ease! Discover comfortable accommodations 
+                and book your perfect stay in just a few clicks.
+            </p>
+            <a href="dashboard.html" class="btn btn-success">
+                <i class="bi bi-search"></i>
+                Explore Hotels
+            </a>
         </div>
         `;
         return;
