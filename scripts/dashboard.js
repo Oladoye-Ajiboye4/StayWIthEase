@@ -33,6 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       navWalletBalance.innerHTML = formatter.format(activeUser.wallet.amount);
+    } else {
+      alert('Please sign in to access this page');
+      setTimeout(() => {
+        window.location.href = "signin.html"
+      }, 500);
     }
   } catch (error) {
     console.log(error)
@@ -41,6 +46,25 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = "signin.html"
     }, 500)
   }
+
+  // Add event listeners to all search buttons
+  const searchBtns = document.querySelectorAll('.searchBtn');
+  searchBtns.forEach(btn => {
+    btn.addEventListener('click', useMapApi);
+  });
+
+  // Add event listener to sync input values
+  const userSearchInputs = document.querySelectorAll('.userSearch');
+  userSearchInputs.forEach(input => {
+    input.addEventListener('input', (e) => {
+      // Sync all search inputs
+      userSearchInputs.forEach(otherInput => {
+        if (otherInput !== e.target) {
+          otherInput.value = e.target.value;
+        }
+      });
+    });
+  });
 });
 
 const payWithPayStack = () => {
@@ -195,13 +219,16 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 const useMapApi = () => {
   const apiKey = geoapifyApiKey;
-  const userSearch = document.getElementById('userSearch').value;
-  const searchBtn = document.getElementById('searchBtn');
-  const searchText = document.getElementById('searchText');
+  const userSearchInputs = document.querySelectorAll('.userSearch');
+  const searchBtns = document.querySelectorAll('.searchBtn');
+  const searchTexts = document.querySelectorAll('.searchText');
+  
+  // Get the value from the first input (they should all have the same value)
+  const userSearch = userSearchInputs[0].value;
 
-  // Show loading state
-  searchBtn.classList.add('loading');
-  searchText.style.opacity = '0.5';
+  // Show loading state on all buttons
+  searchBtns.forEach(btn => btn.classList.add('loading'));
+  searchTexts.forEach(text => text.style.opacity = '0.5');
 
   markersLayer.clearLayers();
 
@@ -226,8 +253,8 @@ const useMapApi = () => {
               sectionTitle.textContent = `Showing results for "${userSearch}"`;
 
               // Hide loading state
-              searchBtn.classList.remove('loading');
-              searchText.style.opacity = '1';
+              searchBtns.forEach(btn => btn.classList.remove('loading'));
+              searchTexts.forEach(text => text.style.opacity = '1');
 
               let allMapData = []
 
@@ -308,23 +335,21 @@ const useMapApi = () => {
           .catch(error => {
             console.error('Error fetching hotels:', error);
             alert("Error fetching hotels. Please try again.");
-            searchBtn.classList.remove('loading');
-            searchText.style.opacity = '1';
+            searchBtns.forEach(btn => btn.classList.remove('loading'));
+            searchTexts.forEach(text => text.style.opacity = '1');
           });
       } else {
         alert("City not found!");
-        searchBtn.classList.remove('loading');
-        searchText.style.opacity = '1';
+        searchBtns.forEach(btn => btn.classList.remove('loading'));
+        searchTexts.forEach(text => text.style.opacity = '1');
       }
     })
     .catch(error => {
       console.error('Error fetching geocoding data:', error);
       alert("Error fetching location data. Please try again.");
 
-      const searchBtn = document.getElementById('searchBtn');
-      const searchText = document.getElementById('searchText');
-      searchBtn.classList.remove('loading');
-      searchText.style.opacity = '1';
+      searchBtns.forEach(btn => btn.classList.remove('loading'));
+      searchTexts.forEach(text => text.style.opacity = '1');
     });
 }
 
