@@ -26,42 +26,38 @@ walletBalance.innerHTML = activeUser.wallet.amount ? formatter.format(activeUser
 
 const showLoadingState = () => {
     bookingsContainer.innerHTML = `
-        <div class="row g-3">
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="booking-card-skeleton h-100">
-                    <div class="skeleton-image"></div>
-                    <div class="skeleton-content">
-                        <div class="skeleton-line skeleton-title"></div>
-                        <div class="skeleton-line skeleton-subtitle"></div>
-                        <div class="skeleton-details">
-                            <div class="skeleton-box"></div>
-                            <div class="skeleton-box"></div>
-                            <div class="skeleton-box"></div>
-                            <div class="skeleton-box"></div>
-                        </div>
-                        <div class="skeleton-footer">
-                            <div class="skeleton-button"></div>
-                            <div class="skeleton-button"></div>
-                        </div>
+        <div class="bookings-grid">
+            <div class="booking-card-skeleton">
+                <div class="skeleton-image"></div>
+                <div class="skeleton-content">
+                    <div class="skeleton-line skeleton-title"></div>
+                    <div class="skeleton-line skeleton-subtitle"></div>
+                    <div class="skeleton-details">
+                        <div class="skeleton-box"></div>
+                        <div class="skeleton-box"></div>
+                        <div class="skeleton-box"></div>
+                        <div class="skeleton-box"></div>
+                    </div>
+                    <div class="skeleton-footer">
+                        <div class="skeleton-button"></div>
+                        <div class="skeleton-button"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="booking-card-skeleton h-100">
-                    <div class="skeleton-image"></div>
-                    <div class="skeleton-content">
-                        <div class="skeleton-line skeleton-title"></div>
-                        <div class="skeleton-line skeleton-subtitle"></div>
-                        <div class="skeleton-details">
-                            <div class="skeleton-box"></div>
-                            <div class="skeleton-box"></div>
-                            <div class="skeleton-box"></div>
-                            <div class="skeleton-box"></div>
-                        </div>
-                        <div class="skeleton-footer">
-                            <div class="skeleton-button"></div>
-                            <div class="skeleton-button"></div>
-                        </div>
+            <div class="booking-card-skeleton">
+                <div class="skeleton-image"></div>
+                <div class="skeleton-content">
+                    <div class="skeleton-line skeleton-title"></div>
+                    <div class="skeleton-line skeleton-subtitle"></div>
+                    <div class="skeleton-details">
+                        <div class="skeleton-box"></div>
+                        <div class="skeleton-box"></div>
+                        <div class="skeleton-box"></div>
+                        <div class="skeleton-box"></div>
+                    </div>
+                    <div class="skeleton-footer">
+                        <div class="skeleton-button"></div>
+                        <div class="skeleton-button"></div>
                     </div>
                 </div>
             </div>
@@ -107,7 +103,7 @@ const renderBookings = (bookings) => {
     }
 
     upcomingTab.textContent = `Upcoming (${bookings.length})`;
-    let html = '<div class="row g-3">';
+    let html = '<div class="bookings-grid">';
 
     bookings.forEach((booking) => {
         const checkInDate = new Date(booking.checkInDate).toLocaleDateString('en-US', {
@@ -124,64 +120,62 @@ const renderBookings = (bookings) => {
         });
 
         html += `
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="booking-card h-100">
-                <div class="booking-card-image">
-                    <img src="${booking.hotelDp || 'https://images.unsplash.com/photo-1631049307038-da5ec5d9cb27?w=500&h=300&fit=crop'}" alt="${booking.hotelName}">
-                    <span class="booking-status-badge">${booking.status || 'Upcoming'}</span>
+        <div class="booking-card">
+            <div class="booking-card-image">
+                <img src="${booking.hotelDp || 'https://images.unsplash.com/photo-1631049307038-da5ec5d9cb27?w=500&h=300&fit=crop'}" alt="${booking.hotelName}">
+                <span class="booking-status-badge">${booking.status || 'Upcoming'}</span>
+            </div>
+            <div class="booking-card-body">
+                <div class="booking-card-header">
+                    <div>
+                        <h4 class="booking-hotel-name">${booking.hotelName}</h4>
+                        <p class="booking-location">
+                            <i class="bi bi-geo-alt"></i> ${booking.location}
+                        </p>
+                    </div>
+                    <div class="booking-price">
+                        ${formatter.format(booking.totalAmount || 0)}
+                    </div>
                 </div>
-                <div class="booking-card-body">
-                    <div class="booking-card-header">
+                
+                <div class="booking-details">
+                    <div class="booking-detail-item">
+                        <i class="bi bi-calendar-check"></i>
                         <div>
-                            <h4 class="booking-hotel-name">${booking.hotelName}</h4>
-                            <p class="booking-location">
-                                <i class="bi bi-geo-alt"></i> ${booking.location}
-                            </p>
-                        </div>
-                        <div class="booking-price">
-                            ${formatter.format(booking.totalAmount || 0)}
+                            <span class="detail-label">Check-in</span>
+                            <span class="detail-value">${checkInDate}</span>
                         </div>
                     </div>
-                    
-                    <div class="booking-details">
-                        <div class="booking-detail-item">
-                            <i class="bi bi-calendar-check"></i>
-                            <div>
-                                <span class="detail-label">Check-in</span>
-                                <span class="detail-value">${checkInDate}</span>
-                            </div>
-                        </div>
-                        <div class="booking-detail-item">
-                            <i class="bi bi-calendar-x"></i>
-                            <div>
-                                <span class="detail-label">Check-out</span>
-                                <span class="detail-value">${checkOutDate}</span>
-                            </div>
-                        </div>
-                        <div class="booking-detail-item">
-                            <i class="bi bi-door-open"></i>
-                            <div>
-                                <span class="detail-label">Room Type</span>
-                                <span class="detail-value">${booking.roomType}</span>
-                            </div>
-                        </div>
-                        <div class="booking-detail-item">
-                            <i class="bi bi-people"></i>
-                            <div>
-                                <span class="detail-label">Guests</span>
-                                <span class="detail-value">${booking.guests || 2}</span>
-                            </div>
+                    <div class="booking-detail-item">
+                        <i class="bi bi-calendar-x"></i>
+                        <div>
+                            <span class="detail-label">Check-out</span>
+                            <span class="detail-value">${checkOutDate}</span>
                         </div>
                     </div>
-                    
-                    <div class="booking-card-footer">
-                        <button class="btn btn-outline-success btn-sm">
-                            <i class="bi bi-eye"></i> View Details
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm">
-                            <i class="bi bi-x-circle"></i> Cancel Booking
-                        </button>
+                    <div class="booking-detail-item">
+                        <i class="bi bi-door-open"></i>
+                        <div>
+                            <span class="detail-label">Room Type</span>
+                            <span class="detail-value">${booking.roomType}</span>
+                        </div>
                     </div>
+                    <div class="booking-detail-item">
+                        <i class="bi bi-people"></i>
+                        <div>
+                            <span class="detail-label">Guests</span>
+                            <span class="detail-value">${booking.guests || 2}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="booking-card-footer">
+                    <button class="btn btn-outline-success btn-sm">
+                        <i class="bi bi-eye"></i> View Details
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-x-circle"></i> Cancel Booking
+                    </button>
                 </div>
             </div>
         </div>

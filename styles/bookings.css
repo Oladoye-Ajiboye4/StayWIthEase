@@ -148,7 +148,7 @@
     overflow: hidden;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
     transition: all 0.3s ease;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
     animation: slideUp 0.6s ease-out;
@@ -267,7 +267,7 @@
 
 .booking-card:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     border-color: var(--primary-green);
 }
 
@@ -288,7 +288,7 @@
 }
 
 .booking-card:hover .booking-card-image img {
-    transform: scale(1.05);
+    transform: scale(1.08);
     opacity: 1;
 }
 
@@ -429,38 +429,137 @@
     box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
-/* ===================== RESPONSIVE BOOKING CARDS ===================== */
+/* ===================== BOOKINGS GRID SYSTEM ===================== */
+.bookings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+}
 
-/* Desktop breakpoint - 4 columns on large screens */
-@media (min-width: 1400px) {
-    #bookingsContainer .row {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
+/* Ultra-wide screens - 2 large columns with maximum comfort */
+@media (min-width: 1600px) {
+    .bookings-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    
+    .booking-card-image {
+        height: 320px;
+    }
+    
+    .booking-card-body {
+        padding: 2rem;
+    }
+    
+    .booking-hotel-name {
+        font-size: 1.5rem;
+    }
+    
+    .booking-price {
+        font-size: 1.75rem;
+    }
+    
+    .booking-details {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        padding: 2rem;
+    }
+    
+    .booking-card-footer {
         gap: 1.5rem;
     }
     
-    #bookingsContainer .col-12 {
-        grid-column: auto !important;
+    .booking-card-footer .btn {
+        padding: 1rem;
+        font-size: 1rem;
     }
 }
 
-/* Laptop/Desktop breakpoint - 3 columns */
-@media (min-width: 992px) and (max-width: 1399px) {
-    #bookingsContainer .row {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+/* Large desktop - 2 columns with good spacing */
+@media (min-width: 1200px) and (max-width: 1599px) {
+    .bookings-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
+    }
+    
+    .booking-card-image {
+        height: 280px;
+    }
+    
+    .booking-card-body {
+        padding: 1.75rem;
+    }
+    
+    .booking-hotel-name {
+        font-size: 1.35rem;
+    }
+    
+    .booking-price {
+        font-size: 1.6rem;
+    }
+    
+    .booking-details {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        padding: 1.75rem;
+    }
+    
+    .booking-card-footer {
+        gap: 1.25rem;
+    }
+    
+    .booking-card-footer .btn {
+        padding: 0.875rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Desktop - 2 columns */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .bookings-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
     
-    #bookingsContainer .col-12 {
-        grid-column: auto !important;
+    .booking-card-image {
+        height: 260px;
+    }
+    
+    .booking-card-body {
+        padding: 1.5rem;
+    }
+    
+    .booking-hotel-name {
+        font-size: 1.25rem;
+    }
+    
+    .booking-price {
+        font-size: 1.5rem;
+    }
+    
+    .booking-details {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+        padding: 1.5rem;
     }
 }
 
-/* Tablet breakpoint - 2 columns */
+/* Large tablet - 2 columns */
 @media (min-width: 768px) and (max-width: 991px) {
+    .bookings-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
     .booking-card-image { 
         height: 220px; 
+    }
+    
+    .booking-card-body {
+        padding: 1.25rem;
     }
     
     .booking-card-header { 
@@ -470,8 +569,8 @@
     
     .booking-details {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.2rem;
-        padding: 1.2rem;
+        gap: 1rem;
+        padding: 1.25rem;
     }
     
     .booking-card-footer { 
@@ -482,16 +581,25 @@
     .booking-hotel-name {
         font-size: 1.15rem;
     }
+    
+    .booking-price {
+        font-size: 1.35rem;
+    }
 }
 
-/* Mobile breakpoint - 1 column, optimized spacing */
-@media (max-width: 767px) {
+/* Small tablet - 1 column, optimized spacing */
+@media (min-width: 576px) and (max-width: 767px) {
+    .bookings-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
     .bookings-wrapper {
         padding-top: 1.5rem;
     }
     
     .bookings-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.65rem;
     }
     
     .booking-tabs {
@@ -501,20 +609,20 @@
     }
     
     .booking-tab {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         white-space: nowrap;
     }
     
     .booking-card { 
-        margin-bottom: 1.5rem; 
+        margin-bottom: 0; 
     }
     
     .booking-card-image { 
-        height: 200px; 
+        height: 240px; 
     }
     
     .booking-card-body {
-        padding: 1.25rem;
+        padding: 1.35rem;
     }
     
     .booking-card-header { 
@@ -523,7 +631,115 @@
     }
     
     .booking-hotel-name { 
-        font-size: 1.2rem; 
+        font-size: 1.25rem; 
+    }
+    
+    .booking-price { 
+        font-size: 1.4rem; 
+    }
+    
+    .booking-details {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .booking-card-footer { 
+        flex-direction: row; 
+        gap: 0.75rem;
+    }
+    
+    .booking-card-footer .btn {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+        flex: 1;
+    }
+    
+    /* Empty state responsive */
+    .empty-state {
+        padding: 50px 16px;
+    }
+    
+    .empty-state-image {
+        max-width: 300px;
+        height: 200px;
+    }
+    
+    .empty-state-title {
+        font-size: 1.6rem;
+    }
+    
+    .empty-state-text {
+        font-size: 0.95rem;
+    }
+}
+
+/* Mobile breakpoint - 1 column, optimized spacing */
+@media (max-width: 575px) {
+    .bookings-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .bookings-wrapper {
+        padding-top: 1.25rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .bookings-header {
+        margin-bottom: 1.25rem;
+    }
+    
+    .bookings-header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .bookings-header p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    
+    .booking-tabs {
+        gap: 1.25rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 1.25rem;
+    }
+    
+    .booking-tab {
+        font-size: 0.75rem;
+        white-space: nowrap;
+        padding: 0.65rem 0;
+    }
+    
+    .booking-card { 
+        margin-bottom: 0;
+    }
+    
+    .booking-card-image { 
+        height: 200px; 
+    }
+    
+    .booking-card-body {
+        padding: 1.2rem;
+    }
+    
+    .booking-card-header { 
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 1.2rem;
+    }
+    
+    .booking-hotel-name { 
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+    
+    .booking-location {
+        font-size: 0.9rem;
     }
     
     .booking-price { 
@@ -534,46 +750,74 @@
         grid-template-columns: 1fr;
         gap: 1rem;
         padding: 1rem;
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .booking-detail-item {
+        gap: 0.75rem;
+    }
+    
+    .detail-label {
+        font-size: 0.75rem;
+    }
+    
+    .detail-value {
+        font-size: 0.95rem;
     }
     
     .booking-card-footer { 
         flex-direction: column; 
-        gap: 0.75rem;
+        gap: 0.65rem;
     }
     
     .booking-card-footer .btn {
-        padding: 0.75rem;
-        font-size: 0.9rem;
+        padding: 0.7rem;
+        font-size: 0.85rem;
+        width: 100%;
     }
     
     /* Empty state responsive */
     .empty-state {
         padding: 40px 16px;
+        border-radius: 12px;
+        margin-top: 2rem;
     }
     
     .empty-state-image {
         max-width: 280px;
         height: 180px;
+        border-radius: 10px;
     }
     
     .empty-state-title {
-        font-size: 1.5rem;
+        font-size: 1.45rem;
+        margin-bottom: 1rem;
     }
     
     .empty-state-text {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .empty-state .btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
     }
 }
 
-/* Extra small mobile - under 400px */
-@media (max-width: 399px) {
+/* Extra small mobile - under 380px */
+@media (max-width: 379px) {
+    .bookings-wrapper {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    
     .bookings-header h1 {
         font-size: 1.35rem;
     }
     
     .booking-card-image { 
-        height: 160px; 
+        height: 180px; 
     }
     
     .booking-card-body {
@@ -594,16 +838,16 @@
     }
     
     .detail-label {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
     
     .detail-value {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
     
     .booking-card-footer .btn {
-        padding: 0.65rem;
-        font-size: 0.85rem;
+        padding: 0.6rem;
+        font-size: 0.8rem;
     }
     
     .empty-state {
@@ -616,15 +860,15 @@
     }
     
     .empty-state-title {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
     }
     
     .empty-state-text {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     
     .empty-state .btn {
-        padding: 10px 24px;
-        font-size: 0.9rem;
+        padding: 0.65rem 1.25rem;
+        font-size: 0.85rem;
     }
 }
